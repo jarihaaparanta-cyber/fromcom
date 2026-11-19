@@ -64,3 +64,20 @@ PUBLIC_TARJOUS_EMAIL=oma@osoite.fi
    `src/components/Tarjouslomake.astro`), roskapostisuojaus ja kuvien liittäminen
 2. Asiakkaan tarkistus teksteille ja täydennettävät tiedot (yllä)
 3. Julkaisu ja fromcom.fi-osoitteen ohjaus uuteen sivustoon
+
+## Julkaisu (Cloudflare Pages)
+
+| Asetus | Arvo |
+| --- | --- |
+| Framework preset | Astro |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+
+Ympäristömuuttujat (Settings → Variables and Secrets):
+
+| Muuttuja | Testiversio | Oikea julkaisu |
+| --- | --- | --- |
+| `PUBLIC_TESTI` | `true` (hakukoneet eivät indeksoi) | ei asetettu |
+| `PUBLIC_TARJOUS_EMAIL` | oma testiosoite | ei asetettu (→ Arto) |
+
+Jokainen push `main`-haaraan julkaisee sivuston automaattisesti uudelleen.

@@ -8,6 +8,8 @@ const sivunOtsikko = otsikko ? `${otsikko} | FromCom Oy` : 'FromCom Oy — Maanr
 const polku = Astro.url.pathname;
 const onAktiivinen = (href) => (href === '/' ? polku === '/' : polku.startsWith(href));
 const vuosi = new Date().getFullYear();
+// Testiversio: estetään hakukoneita indeksoimasta (PUBLIC_TESTI=true julkaisupalvelun asetuksissa).
+const testi = import.meta.env.PUBLIC_TESTI === 'true';
 ---
 <!doctype html>
 <html lang="fi">
@@ -16,6 +18,7 @@ const vuosi = new Date().getFullYear();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{sivunOtsikko}</title>
     <meta name="description" content={kuvaus} />
+    {testi && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:title" content={sivunOtsikko} />
     <meta property="og:description" content={kuvaus} />
     <meta property="og:locale" content="fi_FI" />
