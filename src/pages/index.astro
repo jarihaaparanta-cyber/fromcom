@@ -11,6 +11,7 @@ import tiimi from '../assets/kuvat/IMG-20230131-WA0004.jpg';
 import purku from '../assets/kuvat/Purku5.webp';
 import ranta from '../assets/kuvat/IMG_20220711_221224963_HDR.webp';
 import piha from '../assets/kuvat/valmis1-1.webp';
+import tarjousKuva from '../assets/kuvat/Galleria_sininen.webp';
 
 // Kolme nostoa etusivulle. Kuvateksteinä vain työn laji, kunnes kohteiden
 // tiedot (paikkakunta, FromComin osuus) on saatu FromComilta.
@@ -133,13 +134,16 @@ const jsonLd = {
   </section>
 
   <!-- Tarjouspyyntö -->
-  <section class="quote" id="tarjous">
-    <div class="cta-bg"><Image src={hero} alt="" widths={[800, 1600]} sizes="100vw" loading="lazy" /></div>
-    <div class="wrap">
-      <div class="section-head quote-head">
-        <h2>Pyydä tarjous</h2>
-        <p>Muutamalla valinnalla kokoat tarjouspyynnön. Se vie noin minuutin.</p>
+  <section class="quote" id="tarjous" aria-labelledby="tarjous-otsikko">
+    <div class="quote-intro">
+      <Image class="quote-intro-bg" src={tarjousKuva} alt="" widths={[600, 1000, 1400]} sizes="(max-width: 900px) 100vw, 42vw" loading="lazy" />
+      <div class="quote-intro-text">
+        <h2 id="tarjous-otsikko">Pyydä tarjous</h2>
+        <p>Muutama valinta, noin minuutti.</p>
+        <a class="quote-phone" href={`tel:${yhteyshenkilot[0].tel}`}><Ikoni nimi="puhelin" koko={26} /><span>{yhteyshenkilot[0].puhelin}</span></a>
       </div>
+    </div>
+    <div class="quote-form">
       <Tarjouslomake />
     </div>
   </section>

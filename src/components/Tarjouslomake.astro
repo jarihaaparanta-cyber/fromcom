@@ -26,7 +26,6 @@ const tyot = {
 const aikataulut = ['Mahdollisimman pian', 'Kuukauden sisällä', 'Lähikuukausina', 'Kartoitan vielä vaihtoehtoja'];
 const paikkakunnat = ['Kangasala', 'Tampere', 'Nokia', 'Ylöjärvi', 'Lempäälä', 'Pirkkala', 'Valkeakoski', 'Akaa'];
 const pintaalat = [100, 250, 500, 1000, 2000];
-const vaiheet = ['Palvelu', 'Kohde', 'Tarpeet', 'Sijainti', 'Yhteystiedot'];
 const otsikot = ['Mitä maanrakennustyötä tarvitset?', 'Millainen kohde on kyseessä?', 'Kerro vähän työstä.', 'Missä ja milloin?', 'Miten tavoitamme sinut?'];
 const vihjeet = [
   'Valitse palvelu, niin siirrymme suoraan eteenpäin.',
@@ -36,35 +35,13 @@ const vihjeet = [
   'Viimeinen vaihe. Valitse, miten haluat meidän ottavan yhteyttä.',
 ];
 const vastaanottaja = yhteyshenkilot[0];
-const pad = (n) => String(n).padStart(2, '0');
 ---
 <div class="q" data-quote data-email={TARJOUS_EMAIL} data-tyot={JSON.stringify(tyot)}>
-  <aside class="q-summary" aria-label="Tarjouspyyntösi">
-    <div class="q-summary-head">
-      <span class="eyebrow">TARJOUSPYYNTÖSI</span>
-      <span class="q-step-count" data-step-count>Vaihe 1 / 5</span>
-    </div>
-    <ul class="q-summary-list">
-      {['Palvelu', 'Kohde', 'Tarpeet', 'Sijainti', 'Aikataulu'].map((n) => (
-        <li data-summary={n}><span>{n}</span><strong>Ei vielä valittu</strong></li>
-      ))}
-    </ul>
-    <a class="q-summary-call" href={`tel:${vastaanottaja.tel}`}>
-      <Ikoni nimi="puhelin" />
-      <span><small>MIELUUMMIN SOITTO?</small><strong>{vastaanottaja.puhelin}</strong></span>
-    </a>
-  </aside>
-
   <form class="q-main" novalidate data-form>
     <div class="q-top">
-      <span class="eyebrow" data-step-label>VAIHE 01 / 05 · Palvelu</span>
-      <span class="q-time">NOIN 1 MIN</span>
+      <span class="q-step-label" data-step-label>Vaihe 1 / 5</span>
+      <div class="q-bar" role="progressbar" aria-label="Lomakkeen eteneminen" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" data-bar><span></span></div>
     </div>
-    <ol class="q-progress" aria-label="Lomakkeen vaiheet">
-      {vaiheet.map((v, i) => (
-        <li><button type="button" data-goto={i} disabled={i > 0}><span class="q-bar"><span></span></span><b>{pad(i + 1)}</b> {v}</button></li>
-      ))}
-    </ol>
 
     <div class="q-done" data-done hidden>
       <span class="q-done-icon" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-10"/></svg></span>
@@ -90,12 +67,12 @@ const pad = (n) => String(n).padStart(2, '0');
       <!-- Vaihe 1 -->
       <fieldset class="q-step" data-step="0">
         <legend class="sr-only">Valitse palvelu</legend>
-        <div class="q-grid">
-          {palvelut.map((p, i) => (
-            <label class="q-card">
+        <div class="q-options">
+          {palvelut.map((p) => (
+            <label class="q-option">
               <input class="sr-only" type="radio" name="palvelu" value={p.id} data-label={p.nimi} data-auto />
-              <strong>{p.nimi}</strong>
-              <small>{p.vihje}</small>
+              <span class="q-radio" aria-hidden="true"></span>
+              <span>{p.nimi}</span>
             </label>
           ))}
         </div>
@@ -105,11 +82,12 @@ const pad = (n) => String(n).padStart(2, '0');
       <!-- Vaihe 2 -->
       <fieldset class="q-step" data-step="1" hidden>
         <legend class="sr-only">Valitse kohteen tyyppi</legend>
-        <div class="q-grid">
-          {kohteet.map((k, i) => (
-            <label class="q-card">
+        <div class="q-options">
+          {kohteet.map((k) => (
+            <label class="q-option">
               <input class="sr-only" type="radio" name="kohde" value={k} data-label={k} data-auto />
-              <strong>{k}</strong>
+              <span class="q-radio" aria-hidden="true"></span>
+              <span>{k}</span>
             </label>
           ))}
         </div>
@@ -241,7 +219,6 @@ const pad = (n) => String(n).padStart(2, '0');
     'Viimeinen vaihe. Valitse, miten haluat meidän ottavan yhteyttä.',
   ];
   const VAIHEET = ['Palvelu', 'Kohde', 'Tarpeet', 'Sijainti', 'Yhteystiedot'];
-  const pad = (n: number) => String(n).padStart(2, '0');
   const norm = (s: string) => s.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '-');
 
   document.querySelectorAll<HTMLElement>('[data-quote]').forEach((root) => {
@@ -308,16 +285,7 @@ const pad = (n) => String(n).padStart(2, '0');
     }
 
     function summary() {
-      const set = (n: string, v: string) => {
-        const li = root.querySelector<HTMLElement>(`[data-summary="${n}"]`)!;
-        li.querySelector('strong')!.textContent = v || 'Ei vielä valittu';
-        li.classList.toggle('is-set', !!v);
-      };
-      set('Palvelu', checkedLabel('palvelu'));
-      set('Kohde', val('kohde'));
-      set('Tarpeet', work().join(', '));
-      set('Sijainti', val('sijainti'));
-      set('Aikataulu', val('aikataulu'));
+      // Valintojen yhteenvetoa ei enää näytetä erikseen; funktio jätetty kutsujia varten.
     }
 
     function show(s: number, dir = 1) {
@@ -326,14 +294,10 @@ const pad = (n) => String(n).padStart(2, '0');
       steps.forEach((el, i) => (el.hidden = i !== s));
       $('[data-heading]').textContent = OTSIKOT[s];
       $('[data-hint]').textContent = VIHJEET[s];
-      $('[data-step-label]').textContent = `VAIHE ${pad(s + 1)} / 05 · ${VAIHEET[s]}`;
-      $('[data-step-count]').textContent = `Vaihe ${s + 1} / 5`;
-      $$<HTMLButtonElement>('[data-goto]').forEach((b, i) => {
-        b.disabled = i > maxStep;
-        const li = b.parentElement!;
-        li.className = i < s || (i <= maxStep && i !== s) ? 'is-done' : i === s ? 'is-current' : '';
-        if (i === s) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
-      });
+      $('[data-step-label]').textContent = `Vaihe ${s + 1} / 5 · ${VAIHEET[s]}`;
+      const bar = $('[data-bar]');
+      bar.setAttribute('aria-valuenow', String(s + 1));
+      (bar.firstElementChild as HTMLElement).style.width = `${((s + 1) / 5) * 100}%`;
       $('[data-back]').hidden = s === 0;
       const next = $('[data-next]');
       next.firstChild!.textContent = s === 4 ? 'Lähetä tarjouspyyntö ' : 'Jatka ';
@@ -523,7 +487,6 @@ const pad = (n) => String(n).padStart(2, '0');
     $('[data-retry]').addEventListener('click', () => { showOnly(null); send(); });
 
     $('[data-back]').addEventListener('click', () => { show(step - 1, -1); focusHeading(); });
-    $$<HTMLButtonElement>('[data-goto]').forEach((b) => b.addEventListener('click', () => { show(Number(b.dataset.goto), Number(b.dataset.goto) > step ? 1 : -1); focusHeading(); }));
     $('[data-edit]').addEventListener('click', () => { showOnly(null); show(4, -1); focusHeading(); });
 
     // Pinta-ala
