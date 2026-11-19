@@ -15,14 +15,14 @@ import kaivu from '../assets/kuvat/FromCom_1.webp';
 
 // TÄYDENNETÄÄN: konekohtaiset tiedot (merkki, malli, paino, työlaitteet) asiakkaalta.
 const kuvat = [
-  { kuva: kobelco, alt: 'Turkoosi Kobelco-kaivinkone kuormaa maa-ainesta pihalla', otsikko: 'Kaivinkone pihatyömaalla' },
-  { kuva: sininen, alt: 'FromComin turkoosi kaivinkone metsäisellä maanrakennustyömaalla', otsikko: 'Kalustoa työmaalla' },
-  { kuva: oranssi, alt: 'Kaksi työvaatteisiin pukeutunutta miestä oranssin kaivinkoneen ohjaamon luona', otsikko: 'Oranssi kaivinkone' },
-  { kuva: hero, alt: 'Oranssi kaivinkone ja työntekijä tärylevyn kanssa rakennuksen sorapohjalla', otsikko: 'Tiivistys sorapohjalla' },
-  { kuva: raivaus, alt: 'Kaivinkone tien tasoitustyössä metsäisessä ympäristössä', otsikko: 'Tien tasoitus' },
-  { kuva: kaivu, alt: 'Kaivinkone tasoittaa soraa rakennuksen pohjalla', otsikko: 'Perustustyöt' },
-  { kuva: tyomaa, alt: 'Maanrakennustyömaa, kaivinkone ja järvimaisema', otsikko: 'Työmaa järven rannalla' },
-  { kuva: novatron, alt: 'Novatron-koneohjauksen näyttö kaivinkoneen ohjaamossa', otsikko: 'Novatron 3D -koneohjaus' },
+  { kuva: kobelco, alt: 'Turkoosi Kobelco-kaivinkone kuormaa maa-ainesta pihalla', otsikko: 'Maa-aineksen kuormaus pihatyömaalla' },
+  { kuva: sininen, alt: 'FromComin turkoosi kaivinkone kaivaa kaivantoa lumisella työmaalla', otsikko: 'Kaivinkone kaivutyössä' },
+  { kuva: oranssi, alt: 'Kaksi työvaatteisiin pukeutunutta miestä oranssin kaivinkoneen ohjaamon luona', otsikko: 'FromComin tekijät työmaalla' },
+  { kuva: hero, alt: 'Oranssi kaivinkone ja työntekijä tärylevyn kanssa rakennuksen sorapohjalla', otsikko: 'Sorapohjan tiivistys tärylevyllä' },
+  { kuva: raivaus, alt: 'Kaivinkone tien tasoitustyössä metsäisessä ympäristössä', otsikko: 'Tienpohjan tasaus' },
+  { kuva: kaivu, alt: 'Kaivinkone tasoittaa soraa rakennuksen pohjalla', otsikko: 'Rakennuksen pohjatyöt' },
+  { kuva: tyomaa, alt: 'Maanrakennustyömaa, kaivinkone ja järvimaisema', otsikko: 'Maanrakennustyöt rantakohteessa' },
+  { kuva: novatron, alt: 'Novatron-koneohjauksen näyttö kaivinkoneen ohjaamossa', otsikko: 'Novatronin 3D-koneohjaus' },
 ];
 ---
 <Sivupohja otsikko="Kalusto" kuvaus="FromCom Oy:n maanrakennuskalusto ja Novatron 3D-koneohjaus. Kalusto työn vaatimusten mukaan koko Pirkanmaalla.">
@@ -48,8 +48,8 @@ const kuvat = [
   <section class="section section-dark">
     <div class="wrap">
       <div class="section-head">
-        <h2>Koneet työmaalla</h2>
-        <p>Kaivinkoneet ja työlaitteet valitaan kohteen ja työn mukaan, pienistä pihatöistä suurempiin urakoihin.</p>
+        <h2>Kalusto työmaalla</h2>
+        <p>Valitsemme kaivinkoneen ja työlaitteet kohteen koon ja työvaiheen mukaan. Kuvissa näkyy kalustoa maa-aineksen kuormauksessa, tienpohjan tasauksessa ja rakennusten pohjatöissä.</p>
       </div>
       <Galleria kuvat={kuvat} />
     </div>
