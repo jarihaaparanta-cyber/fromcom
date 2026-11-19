@@ -512,7 +512,7 @@ h3 { font-family: var(--fc-display); font-weight: 600; font-size: clamp(24px, 2.
 
 .q-input-icon { position: relative; }
 .q-input-icon svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--fc-muted); pointer-events: none; }
-.q-input-icon input { padding-left: 44px; }
+.q .q-input-icon input[type='text'] { padding-left: 46px; } /* tila ikonille; ohittaa .q input -perussäännön */
 .q input[type='text'], .q input[type='tel'], .q input[type='email'], .q textarea {
   width: 100%; min-height: 52px; padding: 12px 14px; font: inherit; font-size: 16px;
   background: #fff; border: 1px solid #18191840; color: var(--fc-dark); border-radius: 0;
