@@ -114,7 +114,7 @@ h3 { font-family: var(--fc-display); font-weight: 600; font-size: clamp(24px, 2.
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .logo { display: block; width: 124px; flex: none; }
 @media (max-width: 600px) { .logo { width: 104px; } }
-.logo img { width: 100%; height: auto; }
+.logo img { width: 100%; height: auto; filter: brightness(2.4) contrast(1.15) drop-shadow(0 2px 8px #000c); } /* harmaa logo erottumaan tummalta pohjalta */
 
 .nav { display: flex; align-items: center; gap: clamp(14px, 2vw, 30px); }
 .nav > ul { display: flex; gap: clamp(14px, 2vw, 28px); list-style: none; margin: 0; padding: 0; }
@@ -179,9 +179,9 @@ h3 { font-family: var(--fc-display); font-weight: 600; font-size: clamp(24px, 2.
 .page-hero .wrap { position: relative; display: grid; gap: 22px; }
 .page-hero h1 { max-width: 15ch; }
 .page-hero .lead { max-width: 640px; font-size: clamp(17px, 1.6vw, 20px); color: #dedcd6; margin: 0; }
-.crumbs { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; font-size: 13px; color: var(--fc-muted-light); }
+.crumbs { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; font-size: 15px; font-weight: 600; color: #e4e2dc; text-shadow: 0 1px 6px #000a; }
 .crumbs li + li::before { content: '/'; margin-right: 8px; opacity: .6; }
-.crumbs a { text-decoration: none; }
+.crumbs a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #ffffff66; }
 .crumbs a:hover { color: var(--fc-amber); }
 
 /* Mittaviiva-koriste */

@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
-// Alasivun yläosa: taustakuva, murupolku, yläotsikko, otsikko ja ingressi.
+// Alasivun yläosa: taustakuva, murupolku, otsikko ja ingressi.
+// Murupolku näytetään vain syvemmillä sivuilla (esim. Palvelut / Perustustyöt);
+// päätason sivuilla valikko näyttää jo, missä ollaan.
 const { kuva, kuvaAlt = '', otsikko, ingressi, murupolku = [], kompakti = false } = Astro.props;
 ---
 <section class:list={['page-hero', { 'is-compact': kompakti }]}>
@@ -10,12 +12,14 @@ const { kuva, kuvaAlt = '', otsikko, ingressi, murupolku = [], kompakti = false 
     </div>
   )}
   <div class="wrap">
+    {murupolku.length > 1 && (
     <nav aria-label="Murupolku">
       <ol class="crumbs">
         <li><a href="/">Etusivu</a></li>
         {murupolku.map((m) => <li>{m.href ? <a href={m.href}>{m.nimi}</a> : <span aria-current="page">{m.nimi}</span>}</li>)}
       </ol>
     </nav>
+    )}
     <h1>{otsikko}</h1>
     {ingressi && <p class="lead">{ingressi}</p>}
     <slot />
