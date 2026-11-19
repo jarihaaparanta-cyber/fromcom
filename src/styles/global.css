@@ -362,7 +362,7 @@ h3 { font-family: var(--fc-display); font-weight: 600; font-size: clamp(24px, 2.
 .home-hero {
   position: relative; min-height: 100svh; display: flex; align-items: flex-end;
   color: #fff; background: var(--fc-black); overflow: hidden;
-  padding: calc(var(--header-h) + 80px) 0 0;
+  padding: calc(var(--header-h) + 80px) 0 clamp(48px, 9vh, 110px);
 }
 .home-hero .page-hero-bg::after { background: linear-gradient(90deg, #080808d0 0%, #08080870 55%, #08080830 100%), linear-gradient(180deg, transparent 60%, #080808b0 100%); }
 .home-hero-inner { position: relative; display: grid; gap: 26px; }
