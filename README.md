@@ -65,19 +65,19 @@ PUBLIC_TARJOUS_EMAIL=oma@osoite.fi
 2. Asiakkaan tarkistus teksteille ja täydennettävät tiedot (yllä)
 3. Julkaisu ja fromcom.fi-osoitteen ohjaus uuteen sivustoon
 
-## Julkaisu (Cloudflare Pages)
+## Julkaisu (Cloudflare Workers)
+
+Repo on yhdistetty Cloudflareen (Workers & Pages → fromcom). Jokainen push
+`main`-haaraan kääntää ja julkaisee sivuston automaattisesti.
 
 | Asetus | Arvo |
 | --- | --- |
-| Framework preset | Astro |
 | Build command | `npm run build` |
-| Build output directory | `dist` |
+| Deploy command | `npx wrangler deploy` (asetukset `wrangler.jsonc`) |
 
-Ympäristömuuttujat (Settings → Variables and Secrets):
+Käännösmuuttujat (Settings → Build → Variables and secrets):
 
 | Muuttuja | Testiversio | Oikea julkaisu |
 | --- | --- | --- |
 | `PUBLIC_TESTI` | `true` (hakukoneet eivät indeksoi) | ei asetettu |
 | `PUBLIC_TARJOUS_EMAIL` | oma testiosoite | ei asetettu (→ Arto) |
-
-Jokainen push `main`-haaraan julkaisee sivuston automaattisesti uudelleen.
