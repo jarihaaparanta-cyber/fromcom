@@ -5,3 +5,4 @@ dist/
 .astro/
 *.log
 .dev.vars
+.wrangler/
