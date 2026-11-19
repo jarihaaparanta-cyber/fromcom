@@ -113,19 +113,19 @@ async function kasitteleTarjous(request, env) {
   ].join('\n');
 
   const taulukko = (r) =>
-    r.map(([a, b]) => `<tr><td style="padding:6px 16px 6px 0;color:#5d6163;vertical-align:top">${esc(a)}</td><td style="padding:6px 0;font-weight:600">${esc(b)}</td></tr>`).join('');
+    r.map(([a, b]) => `<tr><td style="padding:6px 16px 6px 0;color:#5d6163;vertical-align:top;width:170px">${esc(a)}</td><td style="padding:6px 0;font-weight:600">${esc(b)}</td></tr>`).join('');
   const puhLinkki = t.puhelin ? `<a href="tel:${esc(t.puhelin.replace(/[^\d+]/g, ''))}" style="color:#181a19">${esc(t.puhelin)}</a>` : '';
   const html = `<!doctype html><html lang="fi"><body style="margin:0;background:#f4f3ef;font-family:Arial,sans-serif;color:#181a19">
 <div style="max-width:600px;margin:0 auto;padding:24px">
 <div style="background:#181a19;color:#ebeae6;padding:20px 24px;border-top:4px solid #e6a32e">
-<div style="font-size:12px;letter-spacing:2px;color:#b9b8b2">FROMCOM.FI / TARJOUSPYYNTÖ</div>
+<div style="font-size:12px;letter-spacing:2px;color:#b9b8b2">FROMCOM&#8203;.FI / TARJOUSPYYNTÖ</div>
 <div style="font-size:24px;font-weight:700;margin-top:6px">${esc(t.palvelu)}${t.sijainti ? ', ' + esc(t.sijainti) : ''}</div>
 </div>
 <div style="background:#fff;padding:24px">
 <h2 style="font-size:16px;margin:0 0 8px">Kohde ja työ</h2>
-<table style="border-collapse:collapse;font-size:15px">${taulukko(rivit)}</table>
+<table style="border-collapse:collapse;font-size:15px;width:100%">${taulukko(rivit)}</table>
 <h2 style="font-size:16px;margin:24px 0 8px">Yhteystiedot</h2>
-<table style="border-collapse:collapse;font-size:15px">${taulukko(yhteys)}</table>
+<table style="border-collapse:collapse;font-size:15px;width:100%">${taulukko(yhteys)}</table>
 ${t.viesti ? `<h2 style="font-size:16px;margin:24px 0 8px">Lisätietoja</h2><p style="font-size:15px;white-space:pre-wrap;margin:0">${esc(t.viesti)}</p>` : ''}
 ${kuvat.length ? `<p style="font-size:14px;color:#5d6163;margin:24px 0 0">Liitteenä ${kuvat.length} kuva(a) kohteesta.</p>` : ''}
 ${puhLinkki ? `<p style="margin:24px 0 0;font-size:15px">Soita asiakkaalle: ${puhLinkki}</p>` : ''}
