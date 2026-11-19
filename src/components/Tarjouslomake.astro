@@ -1,8 +1,8 @@
 ---
 // 5-vaiheinen tarjouslomake demosivun mukaan.
-// Lähetys: toistaiseksi lomake kokoaa tarjouspyynnön ja avaa sen valmiina
-// sähköpostiviestinä (mailto) osoitteeseen TARJOUS_EMAIL (src/data/sivusto.js). Kun taustapalvelu on tehty, lähetys
-// vaihdetaan suoraksi lähetykseksi kohdassa "LÄHETYS" alla.
+// Lähetys: POST /api/tarjous (worker/index.js), joka lähettää viestin Resendin kautta.
+// Jos lähetys epäonnistuu, asiakkaalle tarjotaan valmis sähköpostiviesti (mailto)
+// osoitteeseen TARJOUS_EMAIL (src/data/sivusto.js) ja puhelinnumero.
 import Ikoni from './Ikoni.astro';
 import { yhteyshenkilot, TARJOUS_EMAIL } from '../data/sivusto.js';
 
@@ -68,11 +68,18 @@ const pad = (n) => String(n).padStart(2, '0');
     </ol>
 
     <div class="q-done" data-done hidden>
-      <h3 tabindex="-1">Tarjouspyyntösi on valmis.</h3>
-      <p>Sähköpostiohjelmasi avautui valmiin viestin kanssa osoitteeseen <strong>{TARJOUS_EMAIL}</strong>. Lähetä viesti sieltä, niin otamme sinuun yhteyttä.</p>
-      <p>Jos sähköposti ei auennut, soita suoraan: <a href={`tel:${vastaanottaja.tel}`}>{vastaanottaja.puhelin}</a>.</p>
+      <span class="q-done-icon" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-10"/></svg></span>
+      <h3 tabindex="-1">Kiitos! Tarjouspyyntösi on lähetetty.</h3>
+      <p>Otamme sinuun yhteyttä mahdollisimman pian. Kiireellisissä asioissa voit soittaa suoraan: <a href={`tel:${vastaanottaja.tel}`}>{vastaanottaja.puhelin}</a>.</p>
+    </div>
+
+    <div class="q-done q-failed" data-failed hidden>
+      <h3 tabindex="-1">Lähetys ei onnistunut.</h3>
+      <p data-failed-msg>Tarjouspyyntöä ei saatu lähetettyä.</p>
+      <p>Vastauksesi ovat tallessa. Voit yrittää uudelleen, lähettää ne valmiina sähköpostiviestinä tai soittaa meille: <a href={`tel:${vastaanottaja.tel}`}>{vastaanottaja.puhelin}</a>.</p>
       <div class="buttons">
-        <a class="button button-dark" data-mailto href="#">Avaa sähköposti uudelleen <Ikoni nimi="posti" /></a>
+        <button class="button button-amber" type="button" data-retry>Yritä uudelleen <Ikoni nimi="oikea" /></button>
+        <a class="button button-dark" data-mailto href="#">Lähetä sähköpostilla <Ikoni nimi="posti" /></a>
         <button class="button button-outline" type="button" data-edit>Muokkaa vastauksia <Ikoni nimi="vasen" /></button>
       </div>
     </div>
@@ -203,7 +210,17 @@ const pad = (n) => String(n).padStart(2, '0');
             <textarea id="q-viesti" name="viesti" rows="4" placeholder="Esimerkiksi työn laajuus, kohteen olosuhteet tai sopiva aika soitolle."></textarea>
           </div>
         </div>
-        <p class="q-note">Voit liittää kuvia kohteesta sähköpostiviestiin, joka avautuu lähetyksen jälkeen.</p>
+        <div class="q-photos">
+          <input id="q-kuvat" class="sr-only" type="file" accept="image/*" multiple data-photo-input />
+          <label for="q-kuvat" class="q-photo-add" data-photo-add>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+            <span><strong>Lisää kuvia kohteesta</strong><small>Vapaaehtoinen · esim. tontti, piha tai suunnitelma · enintään 4</small></span>
+          </label>
+          <ul class="q-photo-list" data-photo-list></ul>
+        </div>
+        <div class="q-hp" aria-hidden="true">
+          <label>Jätä tämä tyhjäksi <input type="text" name="yritys_www" tabindex="-1" autocomplete="off" /></label>
+        </div>
       </div>
     </div>
 
@@ -391,6 +408,110 @@ const pad = (n) => String(n).padStart(2, '0');
       if (steps[step].contains(input)) { show(step + 1); focusHeading(); }
     });
 
+    // Kuvat: pienennetään selaimessa (max 1600 px, JPEG), jotta lähetys on nopea.
+    const MAX_PHOTOS = 4;
+    type Photo = { nimi: string; tyyppi: string; data: string; url: string };
+    let photos: Photo[] = [];
+    const photoInput = $<HTMLInputElement>('[data-photo-input]');
+    const photoList = $('[data-photo-list]');
+    async function shrink(file: File): Promise<Photo | null> {
+      try {
+        const bmp = await createImageBitmap(file);
+        const scale = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(bmp.width * scale);
+        canvas.height = Math.round(bmp.height * scale);
+        canvas.getContext('2d')!.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+        const blob: Blob = await new Promise((r) => canvas.toBlob((b) => r(b!), 'image/jpeg', 0.82));
+        const data = await new Promise<string>((r) => { const fr = new FileReader(); fr.onload = () => r(String(fr.result).split(',')[1]); fr.readAsDataURL(blob); });
+        return { nimi: file.name.replace(/\.[^.]+$/, '') + '.jpg', tyyppi: 'image/jpeg', data, url: URL.createObjectURL(blob) };
+      } catch {
+        return null;
+      }
+    }
+    function renderPhotos() {
+      photoList.innerHTML = '';
+      photos.forEach((p, i) => {
+        const li = document.createElement('li');
+        const img = document.createElement('img');
+        img.src = p.url;
+        img.alt = `Valittu kuva: ${p.nimi}`;
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.textContent = '×';
+        del.setAttribute('aria-label', `Poista kuva ${i + 1}`);
+        li.append(img, del);
+        del.addEventListener('click', () => { URL.revokeObjectURL(p.url); photos.splice(i, 1); renderPhotos(); });
+        photoList.append(li);
+      });
+      const full = photos.length >= MAX_PHOTOS;
+      photoInput.disabled = full;
+      $('[data-photo-add]').classList.toggle('is-disabled', full);
+    }
+    photoInput.addEventListener('change', async () => {
+      const files = Array.from(photoInput.files ?? []).filter((f) => f.type.startsWith('image/')).slice(0, MAX_PHOTOS - photos.length);
+      photoInput.value = '';
+      for (const f of files) { const p = await shrink(f); if (p) photos.push(p); }
+      renderPhotos();
+    });
+
+    const startedAt = Date.now();
+    const failed = $('[data-failed]');
+    const done = $('[data-done]');
+    const actions = $('[data-actions]');
+    const nextBtn = $<HTMLButtonElement>('[data-next]');
+
+    function payload() {
+      return {
+        palvelu: checkedLabel('palvelu'),
+        kohde: val('kohde'),
+        tyot: work(),
+        pintaala: area !== null && val('palvelu') !== 'putket' ? (area >= 2000 ? 'yli 2000' : String(area)) : '',
+        suunnitelmat: val('suunnitelmat'),
+        kulkuyhteys: val('kulkuyhteys'),
+        sijainti: val('sijainti'),
+        aikataulu: val('aikataulu'),
+        tapa: val('tapa'),
+        nimi: val('nimi'),
+        puhelin: val('puhelin'),
+        email: val('email'),
+        viesti: val('viesti'),
+        kuvat: photos.map(({ nimi, tyyppi, data }) => ({ nimi, tyyppi, data })),
+        yritys_www: val('yritys_www'),
+        aloitettu: startedAt,
+      };
+    }
+
+    function showOnly(el: HTMLElement | null) {
+      stage.hidden = el !== null;
+      actions.hidden = el !== null;
+      done.hidden = el !== done;
+      failed.hidden = el !== failed;
+      el?.querySelector<HTMLElement>('h3')?.focus();
+    }
+
+    async function send() {
+      nextBtn.disabled = true;
+      nextBtn.firstChild!.textContent = 'Lähetetään… ';
+      try {
+        const res = await fetch('/api/tarjous', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload()) });
+        const json = await res.json().catch(() => ({}));
+        if (res.ok && json.ok) {
+          photos.forEach((p) => URL.revokeObjectURL(p.url));
+          showOnly(done);
+          return;
+        }
+        $('[data-failed-msg]').textContent = json.virhe || 'Tarjouspyyntöä ei saatu lähetettyä.';
+      } catch {
+        $('[data-failed-msg]').textContent = 'Yhteys palvelimeen katkesi.';
+      } finally {
+        nextBtn.disabled = false;
+        nextBtn.firstChild!.textContent = 'Lähetä tarjouspyyntö ';
+      }
+      $<HTMLAnchorElement>('[data-mailto]').href = buildMessage();
+      showOnly(failed);
+    }
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       if (!validate(step)) {
@@ -399,17 +520,13 @@ const pad = (n) => String(n).padStart(2, '0');
         return;
       }
       if (step < 4) { show(step + 1); focusHeading(); return; }
-      // LÄHETYS: vaihdetaan tähän fetch()-kutsu taustapalveluun, kun se on valmis.
-      const href = buildMessage();
-      $<HTMLAnchorElement>('[data-mailto]').href = href;
-      stage.hidden = true; $('[data-actions]').hidden = true; $('[data-done]').hidden = false;
-      $('[data-done] h3').focus();
-      window.location.href = href;
+      send();
     });
+    $('[data-retry]').addEventListener('click', () => { showOnly(null); send(); });
 
     $('[data-back]').addEventListener('click', () => { show(step - 1, -1); focusHeading(); });
     $$<HTMLButtonElement>('[data-goto]').forEach((b) => b.addEventListener('click', () => { show(Number(b.dataset.goto), Number(b.dataset.goto) > step ? 1 : -1); focusHeading(); }));
-    $('[data-edit]').addEventListener('click', () => { stage.hidden = false; $('[data-actions]').hidden = false; $('[data-done]').hidden = true; show(4, -1); focusHeading(); });
+    $('[data-edit]').addEventListener('click', () => { showOnly(null); show(4, -1); focusHeading(); });
 
     // Pinta-ala
     const range = $<HTMLInputElement>('[data-area-range]');

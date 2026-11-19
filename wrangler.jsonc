@@ -1,11 +1,17 @@
-// Cloudflare Workers -julkaisu: valmis staattinen sivusto kansiosta dist/.
+// Cloudflare Workers -julkaisu: staattinen sivusto (dist/) + lomakkeen lähetys (worker/index.js).
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "fromcom",
+  "main": "worker/index.js",
   "compatibility_date": "2026-10-01",
+  // Säilytä hallintapaneelissa asetetut muuttujat (TARJOUS_EMAIL, FROM_EMAIL) julkaisuissa.
+  "keep_vars": true,
+  "observability": { "enabled": true },
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     "not_found_handling": "404-page",
-    "html_handling": "force-trailing-slash"
+    "html_handling": "force-trailing-slash",
+    "run_worker_first": ["/api/*"]
   }
 }
