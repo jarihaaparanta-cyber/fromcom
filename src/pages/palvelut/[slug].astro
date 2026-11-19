@@ -4,7 +4,7 @@ import Sivupohja from '../../layouts/Sivupohja.astro';
 import SivuHero from '../../components/SivuHero.astro';
 import Tarjous from '../../components/Tarjous.astro';
 import Ikoni from '../../components/Ikoni.astro';
-import { palvelut, TARJOUS_URL } from '../../data/sivusto.js';
+import { palvelut, prosessi, TARJOUS_URL } from '../../data/sivusto.js';
 import novatron from '../../assets/kuvat/IMG-20220524-WA0005.webp';
 
 export function getStaticPaths() {
@@ -18,7 +18,6 @@ const muut = palvelut.map((x, i) => ({ ...x, numero: i + 1 })).filter((x) => x.s
   <SivuHero
     kuva={p.kuva}
     kuvaAlt={p.kuvaAlt}
-    ylaotsikko={`0${numero} / 06 · FROMCOM OY / ${p.tunniste}`}
     otsikko={p.nimi}
     ingressi={p.johdanto}
     murupolku={[{ nimi: 'Palvelut', href: '/palvelut/' }, { nimi: p.nimi }]}
@@ -32,8 +31,7 @@ const muut = palvelut.map((x, i) => ({ ...x, numero: i + 1 })).filter((x) => x.s
   <section class="section" id="sisaltaa">
     <div class="wrap split is-top">
       <div class="prose">
-        <span class="eyebrow">01 / PALVELU</span>
-        <h2 style="margin-top:18px">{p.nimi}</h2>
+        <h2>{p.nimi}</h2>
         {p.kuvaus.map((kappale) => <p>{kappale}</p>)}
       </div>
       <div>
@@ -48,14 +46,10 @@ const muut = palvelut.map((x, i) => ({ ...x, numero: i + 1 })).filter((x) => x.s
   <section class="section section-dark">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">02 / NÄIN PROJEKTI ETENEE</span>
         <h2>Yhteydenotosta valmiiseen.</h2>
       </div>
       <ol class="steps">
-        <li><h3>Yhteydenotto</h3><p>Kerro, millaista työtä tarvitset, missä kohde sijaitsee ja millaista aikataulua toivot.</p></li>
-        <li><h3>Kartoitus ja tarjous</h3><p>Käydään läpi kohteen olosuhteet ja työn laajuus. Sovitaan tarjouksesta ja työn etenemisestä.</p></li>
-        <li><h3>Työn toteutus</h3><p>Toteutamme sovitut työt suunnitelman mukaisesti. Novatron 3D-koneohjaus tukee tarkkaa työskentelyä.</p></li>
-        <li><h3>Viimeistely ja luovutus</h3><p>Täytöt, tasaukset ja viimeistely sovitun laajuuden mukaisesti. Lopuksi käydään lopputulos yhdessä läpi.</p></li>
+        {prosessi.map((v) => <li><h3>{v.nimi}</h3><p>{v.teksti}</p></li>)}
       </ol>
     </div>
   </section>
@@ -64,8 +58,7 @@ const muut = palvelut.map((x, i) => ({ ...x, numero: i + 1 })).filter((x) => x.s
     <div class="wrap split">
       <div class="split-media"><Image src={novatron} alt="Novatron-koneohjauksen näyttö kaivinkoneen ohjaamossa" widths={[600, 1000]} sizes="(max-width: 860px) 100vw, 50vw" loading="lazy" /></div>
       <div class="prose">
-        <span class="eyebrow">03 / KONEOHJAUS</span>
-        <h2 style="margin-top:18px">Novatron 3D -koneohjaus.</h2>
+        <h2>Novatron 3D -koneohjaus.</h2>
         <p>Koneohjaus näyttää kuljettajalle suunnitellut korot ja kaltevuudet reaaliajassa. Se tukee suunnitelmien mukaista toteutusta ja auttaa vähentämään turhaa kaivamista.</p>
         <a class="button button-dark" href="/kalusto/">Tutustu kalustoon <Ikoni nimi="nuoli" /></a>
       </div>
@@ -76,7 +69,7 @@ const muut = palvelut.map((x, i) => ({ ...x, numero: i + 1 })).filter((x) => x.s
 
   <section class="section">
     <div class="wrap">
-      <div class="section-head"><span class="eyebrow">MUUT PALVELUT</span><h2>Tutustu myös</h2></div>
+      <div class="section-head"><h2>Muut palvelut</h2></div>
       <ul class="service-links">
         {muut.map((m) => <li><a href={`/palvelut/${m.slug}/`}><span>0{m.numero}</span>{m.nimi}<Ikoni nimi="nuoli" koko={22} /></a></li>)}
       </ul>

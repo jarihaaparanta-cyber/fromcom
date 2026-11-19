@@ -111,7 +111,7 @@ export const palvelut = [
     tunniste: 'RAIVAUS',
     lyhyt: 'Tonttien raivaus ja rakentamiseen valmistelu.',
     kuva: raivaus,
-    kuvaAlt: 'Kaivinkone raivatulla tontilla metsäisessä ympäristössä',
+    kuvaAlt: 'Kaivinkone tien tasoitustyössä metsäisessä ympäristössä', // TÄYDENNETÄÄN: oikea raivauskuva FromComilta
     johdanto:
       'Raivaamme tontin ja valmistelemme sen rakentamista varten, jotta varsinainen rakentaminen pääsee alkamaan suunnitellusti.',
     kuvaus: [
@@ -137,6 +137,15 @@ export const palvelut = [
     sisaltaa: ['Pientalojen purku', 'Ulkorakennusten purku', 'Muiden rakennusten purku', 'Alueen valmistelu purun jälkeen'],
     kohteet: ['Pientalot', 'Ulkorakennukset ja saunat', 'Vapaa-ajan kiinteistöt', 'Muut rakennukset'],
   },
+];
+
+// Mitä FromCom tekee yhteydenoton jälkeen (etusivu ja palvelusivut).
+// Yleinen sanamuoto, kunnes vasteajat ja kohdekäynnin käytännöt on vahvistettu FromComilta.
+export const prosessi = [
+  { nimi: 'Otamme yhteyttä', teksti: 'Käymme kanssasi läpi, mitä kohteessa pitää tehdä ja millaista aikataulua toivot.' },
+  { nimi: 'Kartoitamme kohteen', teksti: 'Selvitämme kohteen olosuhteet ja työn laajuuden ja suunnittelemme sopivan toteutuksen.' },
+  { nimi: 'Teemme tarjouksen', teksti: 'Saat tarjouksen, jossa sovitaan työn sisällöstä, hinnasta ja etenemisestä.' },
+  { nimi: 'Teemme työn ja luovutamme', teksti: 'Toteutamme työn suunnitelman mukaan Novatron 3D-koneohjausta hyödyntäen. Lopuksi käymme lopputuloksen kanssasi läpi.' },
 ];
 
 export const kumppanit = [

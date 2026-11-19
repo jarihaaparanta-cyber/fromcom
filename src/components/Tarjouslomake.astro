@@ -49,7 +49,6 @@ const pad = (n) => String(n).padStart(2, '0');
         <li data-summary={n}><span>{n}</span><strong>Ei vielä valittu</strong></li>
       ))}
     </ul>
-    <p class="q-summary-note">Palvelemme yksityisiä ja yrityksiä koko Pirkanmaalla.</p>
     <a class="q-summary-call" href={`tel:${vastaanottaja.tel}`}>
       <Ikoni nimi="puhelin" />
       <span><small>MIELUUMMIN SOITTO?</small><strong>{vastaanottaja.puhelin}</strong></span>
@@ -211,10 +210,11 @@ const pad = (n) => String(n).padStart(2, '0');
           </div>
         </div>
         <div class="q-photos">
+          <p class="q-note">Kuva kohteesta ja mahdolliset suunnitelmat nopeuttavat tarjousta.</p>
           <input id="q-kuvat" class="sr-only" type="file" accept="image/*" multiple data-photo-input />
           <label for="q-kuvat" class="q-photo-add" data-photo-add>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-            <span><strong>Lisää kuvia kohteesta</strong><small>Vapaaehtoinen · esim. tontti, piha tai suunnitelma · enintään 4</small></span>
+            <span><strong>Lisää kuvia kohteesta</strong><small>Vapaaehtoinen · enintään 4 kuvaa</small></span>
           </label>
           <ul class="q-photo-list" data-photo-list></ul>
         </div>

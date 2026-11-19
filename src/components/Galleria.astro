@@ -1,7 +1,7 @@
 ---
 import { Image, getImage } from 'astro:assets';
 import Ikoni from './Ikoni.astro';
-// kuvat: [{ kuva, alt, otsikko, tunniste }]
+// kuvat: [{ kuva, alt, otsikko, tunniste? }]
 const { kuvat } = Astro.props;
 const isot = await Promise.all(kuvat.map((k) => getImage({ src: k.kuva, width: 2000 })));
 ---
@@ -12,7 +12,7 @@ const isot = await Promise.all(kuvat.map((k) => getImage({ src: k.kuva, width: 2
         <figure>
           <button type="button" data-index={i} aria-label={`Avaa kuva: ${k.otsikko}`}>
             <Image src={k.kuva} alt={k.alt} widths={[480, 800]} sizes="(max-width: 520px) 100vw, (max-width: 900px) 50vw, 33vw" loading="lazy" />
-            <figcaption><span>{k.tunniste}</span><strong>{k.otsikko}</strong></figcaption>
+            <figcaption>{k.tunniste && <span>{k.tunniste}</span>}<strong>{k.otsikko}</strong></figcaption>
           </button>
         </figure>
       </li>

@@ -7,7 +7,6 @@ import { yritys, yhteyshenkilot, TARJOUS_URL } from '../data/sivusto.js';
 <Sivupohja otsikko="Yhteystiedot" kuvaus="Ota yhteyttä FromCom Oy:hyn: Arto From 050 550 3515, Väinö From 0400 170 169. Lohiranta 6, 36270 Kangasala.">
   <SivuHero
     kompakti
-    ylaotsikko="FROMCOM OY / YHTEYSTIEDOT"
     otsikko="Ota yhteyttä."
     ingressi="Kerro kohteestasi ja työn tarpeista. Katsotaan yhdessä sopiva toteutus."
     murupolku={[{ nimi: 'Yhteystiedot' }]}
@@ -30,22 +29,14 @@ import { yritys, yhteyshenkilot, TARJOUS_URL } from '../data/sivusto.js';
   <section class="section section-tint">
     <div class="wrap contact-grid">
       <div class="prose">
-        <span class="eyebrow">01 / PYYDÄ TARJOUS</span>
-        <h2 style="margin-top:18px">Pyydä tarjous!</h2>
-        <p>Kerro tarjouspyynnössä ainakin nämä, niin pääsemme nopeasti eteenpäin:</p>
-        <ul class="checklist" style="margin-bottom:32px">
-          <li>Millaista maanrakennustyötä tarvitset</li>
-          <li>Millainen kohde on ja missä se sijaitsee</li>
-          <li>Työn arvioitu laajuus ja onko suunnitelmat valmiina</li>
-          <li>Milloin työ olisi ajankohtainen</li>
-        </ul>
+        <h2>Pyydä tarjous</h2>
+        <p>Tarjouslomake kysyy kohteesta ja työstä kaiken olennaisen. Täyttäminen vie noin minuutin.</p>
         <div class="buttons">
           <a class="button button-amber" href={TARJOUS_URL}>Täytä tarjouspyyntö <Ikoni nimi="nuoli" /></a>
           <a class="button button-dark" href={`tel:${yhteyshenkilot[0].tel}`}>Soita {yhteyshenkilot[0].puhelin} <Ikoni nimi="puhelin" /></a>
         </div>
       </div>
       <div>
-        <span class="eyebrow">02 / OSOITE</span>
         <address class="address" style="margin:18px 0 20px">
           <strong>{yritys.nimi}</strong><br />
           {yritys.katuosoite}<br />
@@ -53,8 +44,7 @@ import { yritys, yhteyshenkilot, TARJOUS_URL } from '../data/sivusto.js';
         </address>
         <a class="button button-outline" href={yritys.karttalinkki} target="_blank" rel="noopener" style="margin-bottom:32px">Avaa kartalla <Ikoni nimi="sijainti" /></a>
         <div class="contact-map">
-          <span class="eyebrow">TOIMINTA-ALUE / KOKO PIRKANMAA</span>
-          <img src="/pirkanmaa.svg" alt="Kartta Pirkanmaan alueesta, Kangasala on merkitty kartalle" width="800" height="740" loading="lazy" style="margin-top:16px" />
+          <img src="/pirkanmaa.svg" alt="Kartta Pirkanmaan alueesta, Kangasala on merkitty kartalle" width="800" height="740" loading="lazy" />
           <small>Aluerajat: © EuroGeographics / Eurostat, GISCO</small>
         </div>
       </div>

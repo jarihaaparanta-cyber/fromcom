@@ -16,27 +16,27 @@ import purku from '../assets/kuvat/Purku5.webp';
 import tiivistys from '../assets/kuvat/IMG_20220428_174220470.jpg';
 import kobelco from '../assets/kuvat/Fromcom_hero.webp';
 
+// Kuvatekstit FromComin nykyisen sivuston kuvatietojen mukaan.
 // TÄYDENNETÄÄN: referenssikohteiden tarkemmat kuvaukset (paikkakunta, työn sisältö, vuosi) asiakkaalta.
 const kuvat = [
-  { kuva: sininen, alt: 'FromComin turkoosi kaivinkone metsäisellä maanrakennustyömaalla', otsikko: 'Kalustoa työmaalla', tunniste: 'FROMCOM OY / KALUSTO' },
-  { kuva: putket, alt: 'Putkitus ja sorapohja työmaalla', otsikko: 'Vesi- ja viemärityöt', tunniste: 'FROMCOM OY / MAANRAKENNUS' },
-  { kuva: novatron, alt: 'Novatron-koneohjauksen näyttö kaivinkoneen ohjaamossa', otsikko: 'Koneohjaus työssä', tunniste: 'NOVATRON / 3D-KONEOHJAUS' },
-  { kuva: ranta, alt: 'Rakennuksen perustukset rantamaisemassa', otsikko: 'Rakennusten perustustyöt', tunniste: 'FROMCOM OY / PERUSTUKSET' },
-  { kuva: tyomaa, alt: 'Maanrakennustyömaa, kaivinkone ja järvimaisema', otsikko: 'Työmaan ympäristö', tunniste: 'FROMCOM OY / TYÖMAA' },
-  { kuva: piha, alt: 'Valmis nurmipiha ja rakennukset metsäisessä ympäristössä', otsikko: 'Piha- ja viherrakentaminen', tunniste: 'FROMCOM OY / PIHAT' },
-  { kuva: perustus, alt: 'Rakennuksen perustukset ja sorapohja', otsikko: 'Perustukset ja sorapohja', tunniste: 'FROMCOM OY / PERUSTUKSET' },
-  { kuva: tiivistys, alt: 'Oranssi kaivinkone ja työntekijä tärylevyn kanssa rakennuksen sorapohjalla', otsikko: 'Pohjan tiivistys', tunniste: 'FROMCOM OY / PERUSTUKSET' },
-  { kuva: kaivu, alt: 'FromComin kaivinkone maanrakennustyömaalla', otsikko: 'Kunnallistekniset työt', tunniste: 'FROMCOM OY / MAANRAKENNUS' },
-  { kuva: raivaus, alt: 'Kaivinkone raivatulla tontilla metsäisessä ympäristössä', otsikko: 'Tontin raivaus', tunniste: 'FROMCOM OY / RAIVAUS' },
-  { kuva: purku, alt: 'Purkutöiden puutavaraa ja kone työmaalla', otsikko: 'Rakennuksen purku', tunniste: 'FROMCOM OY / PURKU' },
-  { kuva: kobelco, alt: 'Turkoosi kaivinkone kuormaa maa-ainesta pihalla', otsikko: 'Pihan maanrakennus', tunniste: 'FROMCOM OY / PIHAT' },
+  { kuva: sininen, alt: 'FromComin turkoosi kaivinkone metsäisellä maanrakennustyömaalla', otsikko: 'Kalustoa työmaalla' },
+  { kuva: putket, alt: 'Putket ja sorapohja hirsisaunan vieressä', otsikko: 'Putket ja sorapohja' },
+  { kuva: novatron, alt: 'Novatron-koneohjauksen näyttö kaivinkoneen ohjaamossa', otsikko: 'Koneohjaus työssä' },
+  { kuva: ranta, alt: 'Rakennuksen perustukset rantamaisemassa', otsikko: 'Rakennusten perustustyöt' },
+  { kuva: tyomaa, alt: 'Maanrakennustyömaa, kaivinkone ja järvimaisema', otsikko: 'Työmaan ympäristö' },
+  { kuva: piha, alt: 'Valmis nurmipiha ja rakennukset metsäisessä ympäristössä', otsikko: 'Piha- ja viherrakentaminen' },
+  { kuva: perustus, alt: 'Rakennuksen perustukset ja sorapohja', otsikko: 'Perustukset ja sorapohja' },
+  { kuva: tiivistys, alt: 'Oranssi kaivinkone ja työntekijä tärylevyn kanssa rakennuksen sorapohjalla', otsikko: 'Pohjan tiivistys' },
+  { kuva: kaivu, alt: 'Kaivinkone tasoittaa soraa rakennuksen pohjalla', otsikko: 'Perustustyöt' },
+  { kuva: raivaus, alt: 'Kaivinkone tien tasoitustyössä metsäisessä ympäristössä', otsikko: 'Tien tasoitus' },
+  { kuva: purku, alt: 'Purkutöiden puutavaraa ja kone työmaalla', otsikko: 'Rakennuksen purku' },
+  { kuva: kobelco, alt: 'Turkoosi kaivinkone kuormaa maa-ainesta pihalla', otsikko: 'Pihan maanrakennus' },
 ];
 ---
 <Sivupohja otsikko="Referenssit" kuvaus="Kuvia FromCom Oy:n työmailta: perustustyöt, vesi- ja viemärityöt, pihat, raivaukset ja purkutyöt Pirkanmaalla.">
   <SivuHero
     kuva={ranta}
     kuvaAlt="Rakennuksen perustukset rantamaisemassa"
-    ylaotsikko="FROMCOM OY / REFERENSSIT"
     otsikko="Referenssit"
     ingressi="Koneita, työmaita ja toteutuksia FromComin omista kohteista eri puolilta Pirkanmaata."
     murupolku={[{ nimi: 'Referenssit' }]}
@@ -45,9 +45,7 @@ const kuvat = [
   <section class="section">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">01 / KUVAGALLERIA</span>
-        <h2>Työmailta</h2>
-        <p>Avaa kuva suuremmaksi napauttamalla. Kuvia voi selata nuolilla.</p>
+        <h2>Kuvia työmailta</h2>
       </div>
       <Galleria kuvat={kuvat} />
     </div>
