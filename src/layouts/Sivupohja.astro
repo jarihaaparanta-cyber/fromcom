@@ -41,8 +41,8 @@ const testi = import.meta.env.PUBLIC_TESTI === 'true';
                 <a href={v.href} aria-current={onAktiivinen(v.href) ? 'page' : undefined}>{v.nimi}</a>
                 {v.href === '/palvelut/' && (
                   <ul class="sub">
-                    {palvelut.map((p, i) => (
-                      <li><a href={`/palvelut/${p.slug}/`}><b>0{i + 1}</b>{p.nimi}</a></li>
+                    {palvelut.map((p) => (
+                      <li><a href={`/palvelut/${p.slug}/`}>{p.nimi}</a></li>
                     ))}
                   </ul>
                 )}
@@ -68,7 +68,7 @@ const testi = import.meta.env.PUBLIC_TESTI === 'true';
         <ul>
           {valikko.map((v, i) => (
             <li>
-              <a href={v.href} aria-current={onAktiivinen(v.href) ? 'page' : undefined}><span>0{i + 1}</span>{v.nimi}</a>
+              <a href={v.href} aria-current={onAktiivinen(v.href) ? 'page' : undefined}>{v.nimi}</a>
               {v.href === '/palvelut/' && (
                 <ul class="mobile-sub">
                   {palvelut.map((p) => <li><a href={`/palvelut/${p.slug}/`}>{p.nimi}</a></li>)}

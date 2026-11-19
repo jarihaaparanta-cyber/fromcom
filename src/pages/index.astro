@@ -32,7 +32,6 @@ const jsonLd = {
   address: { '@type': 'PostalAddress', streetAddress: yritys.katuosoite, postalCode: yritys.postinumero, addressLocality: yritys.kaupunki, addressCountry: 'FI' },
   areaServed: 'Pirkanmaa',
 };
-const pad = (n) => String(n).padStart(2, '0');
 ---
 <Sivupohja>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
@@ -76,7 +75,6 @@ const pad = (n) => String(n).padStart(2, '0');
           {palvelut.map((p, i) => (
             <li class:list={['svc-item', { 'is-open': i === 0 }]}>
               <button type="button" class="svc-head" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`svc-${p.slug}`} data-index={i}>
-                <span class="svc-num">{pad(i + 1)}</span>
                 <span class="svc-name">{p.nimi}</span>
                 <Ikoni nimi="alas" koko={22} />
               </button>

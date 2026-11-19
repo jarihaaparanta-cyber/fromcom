@@ -8,11 +8,11 @@ import { palvelut, prosessi, TARJOUS_URL } from '../../data/sivusto.js';
 import novatron from '../../assets/kuvat/IMG-20220524-WA0005.webp';
 
 export function getStaticPaths() {
-  return palvelut.map((p, i) => ({ params: { slug: p.slug }, props: { palvelu: p, numero: i + 1 } }));
+  return palvelut.map((p) => ({ params: { slug: p.slug }, props: { palvelu: p } }));
 }
 
-const { palvelu: p, numero } = Astro.props;
-const muut = palvelut.map((x, i) => ({ ...x, numero: i + 1 })).filter((x) => x.slug !== p.slug);
+const { palvelu: p } = Astro.props;
+const muut = palvelut.filter((x) => x.slug !== p.slug);
 ---
 <Sivupohja otsikko={p.nimi} kuvaus={`${p.nimi} Pirkanmaalla – ${p.lyhyt} FromCom Oy, Kangasala.`}>
   <SivuHero
@@ -71,7 +71,7 @@ const muut = palvelut.map((x, i) => ({ ...x, numero: i + 1 })).filter((x) => x.s
     <div class="wrap">
       <div class="section-head"><h2>Muut palvelut</h2></div>
       <ul class="service-links">
-        {muut.map((m) => <li><a href={`/palvelut/${m.slug}/`}><span>0{m.numero}</span>{m.nimi}<Ikoni nimi="nuoli" koko={22} /></a></li>)}
+        {muut.map((m) => <li><a href={`/palvelut/${m.slug}/`}>{m.nimi}<Ikoni nimi="nuoli" koko={22} /></a></li>)}
       </ul>
     </div>
   </section>

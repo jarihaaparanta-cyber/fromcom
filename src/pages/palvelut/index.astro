@@ -26,7 +26,6 @@ import hero from '../../assets/kuvat/Galleria_sininen.webp';
           <a class="card" href={`/palvelut/${p.slug}/`}>
             <div class="card-media"><Image src={p.kuva} alt={p.kuvaAlt} widths={[480, 800]} sizes="(max-width: 620px) 100vw, (max-width: 980px) 50vw, 33vw" loading="lazy" /></div>
             <div class="card-body">
-              <span class="card-num">0{i + 1} / 06</span>
               <h3>{p.nimi}</h3>
               <p>{p.lyhyt}</p>
               <span class="card-more">Tutustu palveluun <Ikoni nimi="nuoli" koko={16} /></span>

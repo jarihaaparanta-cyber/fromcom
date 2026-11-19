@@ -94,7 +94,6 @@ const pad = (n) => String(n).padStart(2, '0');
           {palvelut.map((p, i) => (
             <label class="q-card">
               <input class="sr-only" type="radio" name="palvelu" value={p.id} data-label={p.nimi} data-auto />
-              <span class="q-card-num">{pad(i + 1)}</span>
               <strong>{p.nimi}</strong>
               <small>{p.vihje}</small>
             </label>
@@ -110,7 +109,6 @@ const pad = (n) => String(n).padStart(2, '0');
           {kohteet.map((k, i) => (
             <label class="q-card">
               <input class="sr-only" type="radio" name="kohde" value={k} data-label={k} data-auto />
-              <span class="q-card-num">{pad(i + 1)}</span>
               <strong>{k}</strong>
             </label>
           ))}
