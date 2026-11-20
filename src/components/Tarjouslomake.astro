@@ -26,7 +26,7 @@ const tyot = {
 const aikataulut = ['Mahdollisimman pian', 'Kuukauden sisällä', 'Lähikuukausina', 'Kartoitan vielä vaihtoehtoja'];
 const paikkakunnat = ['Kangasala', 'Tampere', 'Nokia', 'Ylöjärvi', 'Lempäälä', 'Pirkkala', 'Valkeakoski', 'Akaa'];
 const pintaalat = [100, 250, 500, 1000, 2000];
-const otsikot = ['Mitä maanrakennustyötä tarvitset?', 'Millainen kohde on kyseessä?', 'Kerro vähän työstä.', 'Missä ja milloin?', 'Miten tavoitamme sinut?'];
+const otsikot = ['Mitä maanrakennustyötä tarvitset?', 'Millainen kohde on kyseessä?', 'Kerro vähän työstä', 'Missä ja milloin?', 'Miten tavoitamme sinut?'];
 const vihjeet = [
   'Valitse palvelu, niin siirrymme suoraan eteenpäin.',
   'Valitse kohdetta parhaiten kuvaava vaihtoehto.',
@@ -45,12 +45,12 @@ const vastaanottaja = yhteyshenkilot[0];
 
     <div class="q-done" data-done hidden>
       <span class="q-done-icon" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-10"/></svg></span>
-      <h3 tabindex="-1">Kiitos! Tarjouspyyntösi on lähetetty.</h3>
+      <h3 tabindex="-1">Kiitos! Tarjouspyyntösi on lähetetty</h3>
       <p>Otamme sinuun yhteyttä mahdollisimman pian. Kiireellisissä asioissa voit soittaa suoraan: <a href={`tel:${vastaanottaja.tel}`}>{vastaanottaja.puhelin}</a>.</p>
     </div>
 
     <div class="q-done q-failed" data-failed hidden>
-      <h3 tabindex="-1">Lähetys ei onnistunut.</h3>
+      <h3 tabindex="-1">Lähetys ei onnistunut</h3>
       <p data-failed-msg>Tarjouspyyntöä ei saatu lähetettyä.</p>
       <p>Vastauksesi ovat tallessa. Voit yrittää uudelleen, lähettää ne valmiina sähköpostiviestinä tai soittaa meille: <a href={`tel:${vastaanottaja.tel}`}>{vastaanottaja.puhelin}</a>.</p>
       <div class="buttons">
@@ -210,7 +210,7 @@ const vastaanottaja = yhteyshenkilot[0];
 
 <script>
   const PIRKANMAA = ['kangasala','tampere','nokia','ylojarvi','lempaala','pirkkala','valkeakoski','akaa','palkane','orivesi','hameenkyro','ikaalinen','parkano','kuru','virrat','ruovesi','mantta-vilppula','mantta','vilppula','juupajoki','urjala','punkalaidun','sastamala','vesilahti','kihnio'];
-  const OTSIKOT = ['Mitä maanrakennustyötä tarvitset?', 'Millainen kohde on kyseessä?', 'Kerro vähän työstä.', 'Missä ja milloin?', 'Miten tavoitamme sinut?'];
+  const OTSIKOT = ['Mitä maanrakennustyötä tarvitset?', 'Millainen kohde on kyseessä?', 'Kerro vähän työstä', 'Missä ja milloin?', 'Miten tavoitamme sinut?'];
   const VIHJEET = [
     'Valitse palvelu, niin siirrymme suoraan eteenpäin.',
     'Valitse kohdetta parhaiten kuvaava vaihtoehto.',

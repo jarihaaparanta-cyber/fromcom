@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Ikoni from './Ikoni.astro';
 import tausta from '../assets/kuvat/Fromcom_hero.webp';
 import { yhteyshenkilot, TARJOUS_URL } from '../data/sivusto.js';
-const { otsikko = 'Kerro kohteestasi.', teksti = 'Kerro työn tarpeista, kohteesta ja aikataulusta, niin katsotaan yhdessä sopiva toteutus.' } = Astro.props;
+const { otsikko = 'Kerro kohteestasi', teksti = 'Kerro työn tarpeista, kohteesta ja aikataulusta, niin katsotaan yhdessä sopiva toteutus.' } = Astro.props;
 ---
 <section class="cta section">
   <div class="cta-bg"><Image src={tausta} alt="" widths={[800, 1600]} sizes="100vw" loading="lazy" /></div>
